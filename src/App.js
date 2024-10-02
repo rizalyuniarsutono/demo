@@ -4,6 +4,8 @@ import { connect, useDispatch } from 'react-redux';
 import { Navigate, Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { isAuthenticated } from './store/selectors/AuthSelectors';
 import "./css/style.css";
+import FormPengaduanAspirasi from './jsx/components/PengaduanAspirasi/FormPengaduanAspirasi';
+import FormUsulanPeserta from './jsx/components/UsulanPeserta/FormUsulanPeserta';
 
 const Login = lazy(() => {
   return new Promise(resolve => {
@@ -28,6 +30,17 @@ function withRouter(Component) {
   return ComponentWithRouterProp;
 }
 
+const nav = [
+  {
+    url: "/pengelolaan-akun",
+    role: [ "admin" ]
+  },
+  {
+    url: "/form-akun",
+    role: [ "admin" ]
+  },
+]
+
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("accessToken");
 
@@ -35,11 +48,11 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/login" replace />;
   }
 
-  // const role = localStorage.getItem("accesRole");
-  // const idx = nav.map(x => x.url).indexOf(window.location.pathname.replace(process.env.REACT_APP_URL, ''));
-  // if (idx !== -1 && nav[idx].role.indexOf(role) === -1) {
-  //   return <Navigate to="/forbidden" replace />;
-  // }
+  const role = localStorage.getItem("accessRole");
+  const idx = nav.map(x => x.url).indexOf(window.location.pathname.replace(process.env.REACT_APP_URL, ''));
+  if (idx !== -1 && nav[idx].role.indexOf(role) === -1) {
+    return <Navigate to="/" replace />;
+  }
 
   return children;
 };
@@ -55,6 +68,8 @@ function App(props) {
   let routeblog = (
     <Routes>
       <Route path='/login' element={<Login />} />
+      <Route path='/:id?/form-pengaduan-aspirasi' element={<FormPengaduanAspirasi />} />
+      <Route path='/:id?/form-usulan-peserta' element={<FormUsulanPeserta />} />
     </Routes>
   );
   return (

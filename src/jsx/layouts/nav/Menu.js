@@ -1,7 +1,8 @@
 export const MenuList = [
     //Dashboard
     {
-        title: 'Home',	
+        title: 'Home',
+        role: ["user","admin"],
         classsChange: 'mm-collapse',		
         iconStyle: <i className="flaticon-381-networking"></i>,
         content: [
@@ -13,7 +14,8 @@ export const MenuList = [
     },
     
     {
-        title:'Checking Calpes',
+        title:'Calon Peserta',
+        role: ["user","admin"],
         classsChange: 'mm-collapse',
         iconStyle: <i className="flaticon-381-notepad"></i>,
         content : [
@@ -21,14 +23,15 @@ export const MenuList = [
                 title:'Calon Peserta',
                 to: 'checking-calon-peserta',
             },
-            // {
-            //     title:'Verifikasi Pendamping',
-            //     to: 'verifikasi-pendamping',
-            // },
+            {
+                title:'Alumni',
+                to: 'alumni',
+            },
         ]
     },
     {
-        title: 'Aspirasi & Pengaduan',	
+        title: 'Aspirasi & Pengaduan',
+        role: ["user","admin"],
         classsChange: 'mm-collapse',
         iconStyle: <i className="flaticon-381-television"></i>,
         content: [
@@ -36,14 +39,11 @@ export const MenuList = [
                 title: 'Daftar Aspirasi dan Pengaduan',
                 to: 'pengaduan-aspirasi'
             },
-            {
-                title: 'Form Aspirasi dan Pengaduan',
-                to: 'form-pengaduan-aspirasi'
-            },
         ],
     },
     {
-        title: 'Usulan Pesera',	
+        title: 'Usulan Pesera',
+        role: ["user","admin"],
         classsChange: 'mm-collapse',
         iconStyle: <i className="flaticon-381-television"></i>,
         content: [
@@ -54,13 +54,14 @@ export const MenuList = [
         ],
     },
     {
-        title: 'Pengelolaan Akun',	
+        title: 'Pengelolaan Akun',
+        role: ["admin"],
         classsChange: 'mm-collapse',
         iconStyle: <i className="flaticon-381-television"></i>,
         content: [
             {
                 title: 'Daftar Akun',
-                to: 'pengelolaan-akun'
+                to: 'pengelolaan-akun',
             },
         ],
     },

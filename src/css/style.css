@@ -8793,7 +8793,7 @@ a {
   transition: all .2s ease;
   z-index: 5; }
   .nav-header .logo-abbr {
-    max-width: 52px; }
+    max-width: 62px; }
     @media only screen and (max-width: 575px) {
       .nav-header .logo-abbr {
         max-width: 40px; } }

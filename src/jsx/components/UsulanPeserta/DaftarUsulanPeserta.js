@@ -8,75 +8,109 @@ import DatePicker from "react-datepicker";
 
 const DaftarUsulanPeserta = () => {
   const navigate = useNavigate();
-  const dataDummy = [
-    {
-      id: 'O-20240725-002',
-      name: 'Rizal',
-      type: 'Vol 1',
-      qty: 2,
-      nama_penerima: 'Rizal Yuniar',
-      status: 'sudah assign',
-    },
-    {
-      id: 'O-20240725-003',
-      name: 'Rizal Yuniar',
-      type: 'Vol 2',
-      qty: 3,
-      nama_penerima: 'Rizal',
-      status: 'belum assign',
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [pdfFiles, setPdfFiles] = useState({});
+  const [excelFiles, setExcelFiles] = useState({});
+
+  const fetchData = async () => {
+    const res = await GET(`/usulan-peserta`);
+    setData(res?.data);
+
+    const pdfFilesMap = {};
+    const excelFilesMap = {};
+    for (const row of res?.data) {
+      try {
+        const pdfResponse = await GET(`/file/pdf/${row.surat_usulan}`, {}, { responseType: "arraybuffer" });
+        pdfFilesMap[row.surat_usulan] = pdfResponse;
+
+        const excelResponse = await GET(`/file/excel/${row.usulan}`, {}, { responseType: "arraybuffer" });
+        excelFilesMap[row.usulan] = excelResponse;
+      } catch (error) {
+        console.error(`Error downloading files for ${row.pengusul}: `, error);
+      }
+    }
+    setPdfFiles(pdfFilesMap);
+    setExcelFiles(excelFilesMap);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const columns = [
     {
-      name: 'Username',
-      selector: row => row.id,
+      name: 'Pengusul',
+      selector: row => row.pengusul,
     },
     {
-      name: 'Nama',
-      selector: row => row.name,
+      name: 'Tanggal Usulan',
+      selector: row => row.tanggal,
     },
     {
-      name: 'Email',
-      selector: row => row.type,
+      name: 'Contact Person',
+      selector: row => row.hp_no,
     },
     {
-      name: 'Role',
-      selector: row => row.qty,
-    },
-    {
-      name: 'Aksi',
-      selector: row => row.id,
-      width: "150px",
+      name: 'Surat Usulan',
+      selector: row => row.surat_usulan,
       cell: (row) => (
         <div>
           <button
-            className="btn btn-info shadow btn-xs sharp mx-1"
-            title="Detail"
-          // onClick={() => navigate(`/${row.id}/form-tentang`, { state: { from: 'Detail' } })}
+            className="btn btn-primary shadow btn-xs"
+            onClick={() => handleDownloadPdf(row.surat_usulan, `Surat_Usulan_${row.pengusul}`)}
           >
-            <i className="fa fa-eye"></i>
+            Download
           </button>
-
-          <button
-            className="btn btn-primary shadow btn-xs sharp"
-            title="Edit"
-          // onClick={() => navigate(`/${row.id}/form-tentang`, { state: { from: 'Ubah' } })}
-          >
-            <i className="fa fa-pencil"></i>
-          </button>
-
-          <Link className="btn btn-danger shadow btn-xs sharp ml-1" title="delete"
-          // onClick={() => handleDeleteClick(row.id)}
-          >
-            <i className="fa fa-trash"></i>
-          </Link>
         </div>
       ),
     },
+    {
+      name: 'Usulan',
+      selector: row => row.usulan,
+      cell: (row) => (
+        <div>
+          <button
+            className="btn btn-primary shadow btn-xs"
+            onClick={() => handleDownloadExcel(row.usulan, `Usulan_${row.pengusul}`)}
+          >
+            Download
+          </button>
+        </div>
+      ),
+    }
   ];
   const customStyles = {
     headRow: { style: { backgroundColor: "#FCFCFD", fontSize: "14px", fontWeight: "bold", color: "black" } },
     rows: { style: { backgroundColor: "#FFFFFF", "&:nth-child(2n)": { backgroundColor: "#F3F0FD" } } },
+  };
+
+  const handleDownloadPdf = (fileId, fileName) => {
+    const file = pdfFiles[fileId];
+    if (file) {
+      const blob = new Blob([file], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${fileName}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    }
+  };
+
+  const handleDownloadExcel = (fileId, fileName) => {
+    const file = excelFiles[fileId];
+    if (file) {
+      const blob = new Blob([file], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `${fileName}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    }
   };
 
   return (
@@ -88,17 +122,15 @@ const DaftarUsulanPeserta = () => {
               <Card.Title>Daftar Usulan Peserta</Card.Title>
             </Card.Header>
             <div className="d-flex justify-content-end mt-4 px-5">
-              <button className="btn btn-success"
-              // onClick={() => navigate(`/form-cerita-hikmah`, { state: { from: 'Tambah' } })}
-              >
+              <button className="btn btn-success" onClick={() => navigate(`/form-usulan-peserta`, { state: { from: 'Tambah' } })}>
                 Tambah Usulan
               </button>
             </div>
             <Card.Body>
-              {dataDummy && dataDummy.length > 0 ? (
+              {data && data.length > 0 ? (
                 <DataTable
                   columns={columns}
-                  data={dataDummy}
+                  data={data}
                   customStyles={customStyles}
                 // pagination
                 // paginationServer

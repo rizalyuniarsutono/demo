@@ -7,6 +7,7 @@ import { GET, PATCH, POST } from "../../../services/AxiosService";
 import DatePicker from "react-datepicker";
 import Swal from "sweetalert2";
 import DataTable from "react-data-table-component";
+import logo from "../../../images/logo-ma2.png";
 
 const FormPengaduanAspirasi = () => {
   const location = useLocation();
@@ -79,15 +80,22 @@ const FormPengaduanAspirasi = () => {
   };
 
   return (
-    <Fragment>
-      <PageTitle
-        activeMenu={`Layanan Aspirasi dan Pengaduan Online Peserta Diklat`}
-      />
+    <div className="vh-100">
+      <div className='mb-5' style={{ height: "200px", backgroundColor: "#004aad" }}>
+        <div className='d-flex justify-content-center align-items-center'>
+          <img className="mr-5" src={logo} alt="" height={200} />
+          <div>
+            <h1 className="text-center" style={{ color: "#ffde59" }}>SIULAN-CEKSITA</h1>
+            <h1 className="text-center" style={{ color: "#ffde59" }}>Layanan Aspirasi dan Pengaduan Online Peserta Diklat</h1>
+            <h3 className="text-center" style={{ color: "#ffffff" }}>Program dan Evaluasi Pusdiklat Manajemen dan Kepemimpinan</h3>
+          </div>
+        </div>
+      </div>
       <div className="row">
         <div className="col-lg-12">
           <div className="card">
             <div className="card-header d-flex">
-              <h4 className="card-title mb-2">{locations} Form Pengaduan Aspirasi</h4>
+              <h4 className="card-title mb-2">Ayo Sampaikan Aspirasi dan Pengaduan anda!</h4>
               {location.state?.from === "Detail" && (
                 <Link className="btn btn-primary" to={`/daftar-donasi`}>
                   Kembali
@@ -157,7 +165,7 @@ const FormPengaduanAspirasi = () => {
                   {location.state?.from !== "Detail" && (
                     <div className="form-group mb-3 d-flex">
                       <div className="col-xl-6">
-                        <Link className="btn btn-light w-100" to={`/pengelolaan-akun`}>
+                        <Link className="btn btn-light w-100" to={`/login`}>
                           Batal
                         </Link>
                       </div>
@@ -177,7 +185,7 @@ const FormPengaduanAspirasi = () => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
   )
 }
 

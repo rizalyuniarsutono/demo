@@ -15,6 +15,8 @@ import FormAkun from './components/PengelolaanAkun/FormAkun';
 import DaftarPengaduanAspirasi from './components/PengaduanAspirasi/DaftarPengaduanAspirasi';
 import FormPengaduanAspirasi from './components/PengaduanAspirasi/FormPengaduanAspirasi'
 import DaftarUsulanPeserta from './components/UsulanPeserta/DaftarUsulanPeserta';
+import ImportAlumni from './components/CheckingCalonPeserta/ImportAlumni';
+import FormUsulanPeserta from './components/UsulanPeserta/FormUsulanPeserta';
 
 //Scroll To Top
 import ScrollToTop from './layouts/ScrollToTop';
@@ -28,8 +30,10 @@ const Markup = () => {
     { url: "pengelolaan-akun", component: <DaftarAkun/> },
     { url: ":id?/form-akun", component: <FormAkun/> },
     { url: "pengaduan-aspirasi", component: <DaftarPengaduanAspirasi/> },
-    { url: ":id?/form-pengaduan-aspirasi", component: <FormPengaduanAspirasi/> },
+    // { url: ":id?/form-pengaduan-aspirasi", component: <FormPengaduanAspirasi/> },
+    { url: "alumni", component: <ImportAlumni/> },
     { url: "usulan-peserta", component: <DaftarUsulanPeserta/> },
+    // { url: ":id?/form-usulan-peserta", component: <FormUsulanPeserta/> },
   ]
 
   return (

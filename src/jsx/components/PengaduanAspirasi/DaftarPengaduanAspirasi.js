@@ -9,6 +9,10 @@ import DatePicker from "react-datepicker";
 const DaftarPengaduanAspirasi = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState("");
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -24,13 +28,28 @@ const DaftarPengaduanAspirasi = () => {
     tindakLanjut: ""
   })
 
-  const fetchData = async () => {
-    const res = await GET(`/aspirasi-pengaduan`);
+  const fetchData = async (page, perPage) => {
+    const params = {
+      page,
+      size: perPage,
+    };
+    const res = await GET(`/aspirasi-pengaduan`, params);
     setData(res?.data);
+    setTotalRows(res?.pagination?.totalData);
+  };
+  const fetchServerData = () => {
+    fetchData(currentPage, perPage);
+  };
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const handlePerPageChange = (newPerPage) => {
+    setPerPage(newPerPage);
+    setResetPaginationToggle(!resetPaginationToggle);
   };
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchServerData();
+  }, [perPage, currentPage]);
 
   const columns = [
     { name: 'No', selector: (row, index) => index + 1, width: "80px" },
@@ -118,16 +137,14 @@ const DaftarPengaduanAspirasi = () => {
                   columns={columns}
                   data={data}
                   customStyles={customStyles}
-                // pagination
-                // paginationServer
-                // paginationRowsPerPageOptions={[10, 25, 50]}
-                // paginationResetDefaultPage={resetPaginationToggle}
-                // paginationPerPage={perPage}
-                // paginationTotalRows={totalRows}
-                // onChangePage={handlePageChange}
-                // onChangeRowsPerPage={handlePerPageChange}
-                // onSort={handleSort}
-                // defaultSortFieldId={1}
+                  pagination
+                  paginationServer
+                  paginationRowsPerPageOptions={[10, 25, 50]}
+                  paginationResetDefaultPage={resetPaginationToggle}
+                  paginationPerPage={perPage}
+                  paginationTotalRows={totalRows}
+                  onChangePage={handlePageChange}
+                  onChangeRowsPerPage={handlePerPageChange}
                 />
               ) : (
                 <p>Tidak ada data</p>

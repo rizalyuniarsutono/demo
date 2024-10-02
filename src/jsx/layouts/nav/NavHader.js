@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 /// images
-import logo from "../../../images/logo-ma.jpg";
-import logoText from "../../../images/logo-text.png";
+// import logo from "../../../images/logo-ma.jpg";
+import logo from "../../../images/logo-ma2.png";
+import logoText from "../../../images/logotext-ma.png";
 
 export function NavMenuToggle() {
    setTimeout(() => {
@@ -27,7 +28,8 @@ const NavHader = () => {
          </Link> */}
          <Link to="/" className="brand-logo">
             <img className="logo-abbr" src={logo} alt="" />
-            {/* <b className="brand-title" style={{ color: "white", fontSize: "12px" }}>Yayasan Hikmah Mata Hati</b> */}
+            <img className="brand-title" src={logoText} alt="" />
+            {/* <b className="brand-title" style={{ color: "yellow", fontSize: "13px" }}>MAHKAMAH AGUNG CORPORATE UNIVERSITY</b> */}
          </Link>
 
          <div className="nav-control"

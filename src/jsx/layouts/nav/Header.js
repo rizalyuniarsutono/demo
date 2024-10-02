@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
 /// Image
-import profile from "../../../images/profile/17.jpg";
+import profile from "../../../images/profile.png";
 import avatar from "../../../images/avatar/1.jpg";
 import { Dropdown } from "react-bootstrap";
 import Logout from './Logout';
@@ -37,6 +37,8 @@ const Header = ({ onNote }) => {
     : filterName.includes("editor")
     ? filterName.filter((f) => f !== "editor")
     : filterName;
+
+    const nameUser = localStorage.getItem('accessName');
   return (
     <div className="header">
       <div className="header-content">
@@ -47,7 +49,7 @@ const Header = ({ onNote }) => {
                 className="dashboard_bar"
                 style={{ color: "#ffde59" }}
               >
-                Sistem Informasi Pengecekan<br/>Calon Peserta Diklat
+                SIULAN-CEKSITA
               </div>
             </div>
             <ul className="navbar-nav header-right">
@@ -60,7 +62,7 @@ const Header = ({ onNote }) => {
                 >
                   <div className="header-info mr-2">
                     <span className="text-white">
-                      <strong>Rizal Yuniar</strong>
+                      <strong>{nameUser}</strong>
                     </span>
                     {/* <p className="fs-12 mb-0">Admin</p> */}
                   </div>

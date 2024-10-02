@@ -9,14 +9,32 @@ import DatePicker from "react-datepicker";
 const DaftarAkun = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState("");
 
-  const fetchData = async () => {
-    const res = await GET(`/user`);
+  const fetchData = async (page, perPage) => {
+    const params = {
+      page,
+      size: perPage,
+    };
+    const res = await GET(`/user`, params);
     setData(res?.data);
   };
+  const fetchServerData = () => {
+    fetchData(currentPage, perPage);
+  };
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  const handlePerPageChange = (newPerPage) => {
+    setPerPage(newPerPage);
+    setResetPaginationToggle(!resetPaginationToggle);
+  };
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchServerData();
+  }, [perPage, currentPage]);
   const columns = [
     {
       name: 'Username',
@@ -103,11 +121,9 @@ const DaftarAkun = () => {
               <Card.Title>Daftar Akun Pengguna</Card.Title>
             </Card.Header>
             <div className="d-flex justify-content-end mt-4 px-5">
-                <button className="btn btn-success"
-                onClick={() => navigate(`/form-akun`, { state: { from: 'Tambah' } })}
-                >
-                  Tambah Akun
-                </button>
+              <button className="btn btn-success" onClick={() => navigate(`/form-akun`, { state: { from: 'Tambah' } })}>
+                Tambah Akun
+              </button>
             </div>
             <Card.Body>
               {data && data.length > 0 ? (
@@ -115,16 +131,14 @@ const DaftarAkun = () => {
                   columns={columns}
                   data={data}
                   customStyles={customStyles}
-                // pagination
-                // paginationServer
-                // paginationRowsPerPageOptions={[10, 25, 50]}
-                // paginationResetDefaultPage={resetPaginationToggle}
-                // paginationPerPage={perPage}
-                // paginationTotalRows={totalRows}
-                // onChangePage={handlePageChange}
-                // onChangeRowsPerPage={handlePerPageChange}
-                // onSort={handleSort}
-                // defaultSortFieldId={1}
+                  pagination
+                  paginationServer
+                  paginationRowsPerPageOptions={[10, 25, 50]}
+                  paginationResetDefaultPage={resetPaginationToggle}
+                  paginationPerPage={perPage}
+                  paginationTotalRows={totalRows}
+                  onChangePage={handlePageChange}
+                  onChangeRowsPerPage={handlePerPageChange}
                 />
               ) : (
                 <p>Tidak ada data</p>
