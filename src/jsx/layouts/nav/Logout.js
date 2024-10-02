@@ -22,6 +22,7 @@ function withRouter(Component) {
 }
 
 function LogoutPage(props){
+    localStorage.clear();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     function onLogout() {

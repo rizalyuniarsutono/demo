@@ -93,7 +93,7 @@ const FormPengaduanAspirasi = () => {
       </div>
       <div className="row">
         <div className="col-lg-12">
-          <div className="card">
+          <div className="card mx-5">
             <div className="card-header d-flex">
               <h4 className="card-title mb-2">Ayo Sampaikan Aspirasi dan Pengaduan anda!</h4>
               {location.state?.from === "Detail" && (

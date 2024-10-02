@@ -56,23 +56,30 @@ const DaftarPengaduanAspirasi = () => {
     {
       name: 'Klasifikasi',
       selector: row => row.klasifikasi,
+      width: "120px",
+      wrap: true,
     },
     {
       name: 'Judul',
       selector: row => row.judul,
+      // width: "310px",
+      wrap: true,
     },
     {
       name: 'Laporan',
       selector: row => row.deskripsi,
+      width: "430px",
+      wrap: true,
     },
     {
       name: 'Tindak Lanjut',
       selector: row => row.tindak_lanjut,
+      wrap: true,
     },
     {
       name: 'Aksi',
       selector: row => row.id,
-      width: "150px",
+      width: "80px",
       cell: (row) => (
         <div>
           <button
@@ -89,6 +96,12 @@ const DaftarPengaduanAspirasi = () => {
   const customStyles = {
     headRow: { style: { backgroundColor: "#FCFCFD", fontSize: "14px", fontWeight: "bold", color: "black" } },
     rows: { style: { backgroundColor: "#FFFFFF", "&:nth-child(2n)": { backgroundColor: "#F3F0FD" } } },
+    cells: {
+      style: {
+        whiteSpace: 'normal', // Mengatur teks agar bisa dibungkus ke baris baru
+        wordWrap: 'break-word', // Memastikan kata-kata yang panjang terpecah
+      },
+    },
   };
 
   const handleSubmit = async (e) => {

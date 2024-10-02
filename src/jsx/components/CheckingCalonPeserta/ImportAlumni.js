@@ -45,49 +45,25 @@ const ImportAlumni = () => {
     {
       name: 'Nip',
       selector: row => row.nip,
+      width: "200px",
+      wrap: true,
     },
     {
       name: 'Nama',
       selector: row => row.nama_peserta,
+      wrap: true,
     },
     {
       name: 'Id Diklat',
       selector: row => row.id_diklat,
+      width: "100px",
+      wrap: true,
     },
     {
       name: 'Nama Diklat',
       selector: row => row.nama_diklat,
+      wrap: true,
     },
-    // {
-    //   name: 'Aksi',
-    //   selector: row => row.id,
-    //   width: "150px",
-    //   cell: (row) => (
-    //     <div>
-    //       <button
-    //         className="btn btn-info shadow btn-xs sharp mx-1"
-    //         title="Detail"
-    //       // onClick={() => navigate(`/${row.id}/form-tentang`, { state: { from: 'Detail' } })}
-    //       >
-    //         <i className="fa fa-eye"></i>
-    //       </button>
-
-    //       <button
-    //         className="btn btn-primary shadow btn-xs sharp"
-    //         title="Edit"
-    //       // onClick={() => navigate(`/${row.id}/form-tentang`, { state: { from: 'Ubah' } })}
-    //       >
-    //         <i className="fa fa-pencil"></i>
-    //       </button>
-
-    //       <Link className="btn btn-danger shadow btn-xs sharp ml-1" title="delete"
-    //       // onClick={() => handleDeleteClick(row.id)}
-    //       >
-    //         <i className="fa fa-trash"></i>
-    //       </Link>
-    //     </div>
-    //   ),
-    // },
   ];
   const customStyles = {
     headRow: { style: { backgroundColor: "#FCFCFD", fontSize: "14px", fontWeight: "bold", color: "black" } },

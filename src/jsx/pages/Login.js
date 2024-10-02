@@ -62,8 +62,6 @@ function Login() {
 
 		const res = await POST(`/user/login`, requestBody, callback);
 		if (res) {
-			console.log(res.data);
-			
 			Swal.close();
 			Swal.fire( "Login Sukses" );
 
@@ -75,9 +73,9 @@ function Login() {
 
 			localStorage.setItem("accessToken", token);
 			localStorage.setItem("refreshToken", refresh_token);
-			// localStorage.setItem("accessId", access_id);
 			localStorage.setItem("accessName", access_name);
 			localStorage.setItem("accessRole", access_role);
+			// localStorage.setItem("accessId", access_id);
 
 			router("/");
 		}

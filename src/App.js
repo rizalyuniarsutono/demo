@@ -41,15 +41,40 @@ const nav = [
   },
 ]
 
+// const ProtectedRoute = ({ children }) => {
+//   const token = localStorage.getItem("accessToken");
+
+//   if (!token) {
+//     return <Navigate to="/login" replace />;
+//   }
+
+//   const role = localStorage.getItem("accessRole");
+//   const idx = nav.map(x => x.url).indexOf(window.location.pathname.replace(process.env.REACT_APP_URL, ''));
+//   if (idx !== -1 && nav[idx].role.indexOf(role) === -1) {
+//     return <Navigate to="/" replace />;
+//   }
+
+//   return children;
+// };
+
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("accessToken");
+  const location = useLocation();
 
-  if (!token) {
+  const publicRoutes = [
+    "/form-pengaduan-aspirasi",
+    "/form-usulan-peserta"
+  ];
+
+  const isPublicRoute = publicRoutes.some(route => location.pathname.includes(route));
+
+  if (!token && !isPublicRoute) {
     return <Navigate to="/login" replace />;
   }
 
   const role = localStorage.getItem("accessRole");
   const idx = nav.map(x => x.url).indexOf(window.location.pathname.replace(process.env.REACT_APP_URL, ''));
+  
   if (idx !== -1 && nav[idx].role.indexOf(role) === -1) {
     return <Navigate to="/" replace />;
   }
