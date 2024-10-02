@@ -49,7 +49,7 @@ const Header = ({ onNote }) => {
                 className="dashboard_bar"
                 style={{ color: "#ffde59" }}
               >
-                SIULAN-CEKSITA
+                SI-ULAN CEKSITA
               </div>
             </div>
             <ul className="navbar-nav header-right">

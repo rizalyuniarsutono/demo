@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {
 	loadingToggleAction, loginAction,
 } from '../../store/actions/AuthActions';
-import logo from "../../images/logo-ma.jpg";
+import logo from "../../images/logo-ma2.png";
 import logotext from '../../images/logo-text.png'
 import Swal from 'sweetalert2';
 import { POST } from '../../services/AxiosService';
@@ -89,7 +89,7 @@ function Login() {
 				<div className='d-flex justify-content-center align-items-center'>
 					<img className="mr-5" src={logo} alt="" height={200} />
 					<div>
-						<h1 className="text-center" style={{ color: "#ffde59" }}>SIULAN-CEKSITA</h1>
+						<h1 className="text-center" style={{ color: "#ffde59" }}>SI-ULAN CEKSITA</h1>
 						<h1 className="text-center" style={{ color: "#ffde59" }}>Sistem Informasi Pengusulan, Pengecekan dan Aspirasi Pengaduan Peserta</h1>
 						<h3 className="text-center" style={{ color: "#ffffff" }}>Program dan Evaluasi Pusdiklat Manajemen dan Kepemimpinan</h3>
 					</div>
