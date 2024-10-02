@@ -48,10 +48,10 @@ const CalonPeserta = () => {
   };
 
   const columns = [
-    { name: 'No', selector: (row, index) => index + 1 },
-    { name: 'Nama', selector: row => row.data?.nama_peserta },
-    { name: 'Nip', selector: row => row.data?.nip },
-    { name: 'Status', selector: row => row.message },
+    { name: 'No', selector: (row, index) => index + 1, width: "80px" },
+    { name: 'Nama', selector: row => row.data?.nama_peserta, wrap: true, },
+    { name: 'Nip', selector: row => row.data?.nip, wrap: true, },
+    { name: 'Status', selector: row => row.message, wrap: true, },
   ];
 
   const customStyles = {
