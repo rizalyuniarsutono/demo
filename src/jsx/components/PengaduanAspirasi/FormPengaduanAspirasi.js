@@ -65,7 +65,7 @@ const FormPengaduanAspirasi = () => {
     if (res) {
       Swal.fire({
         icon: "success",
-        title: "Berhasil membuat akun!",
+        title: "Berhasil membuat pengaduan dan aspirasi!",
       }).then(() => {
         Swal.close();
         setFormData({
